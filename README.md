@@ -1,4 +1,5 @@
-# py, python is a kind of script, or a programming language, you should try it often. Practice makes perfect.
+# py, python is a kind of script, or a programming language, you should try it often.
+# Practice makes perfect.
 # So one bite at a time. You will get comprehensive knowledge about Python gradually.
 # I use this repository for store my python scripts
 # install software using source codes following.
