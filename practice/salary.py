@@ -1,47 +1,52 @@
 #!/usr/bin/python3
+
 # input format: ./salary.py 0 or ./salary.py 1
+# 2021, Shanghai, Shebao and Gongjj
+
 import sys
-num = []
+num  = []
 sval = []
-i = 0
 
 #填入税前月薪, 社保: 养老, 医疗, 失业, 公积金, 专项扣除
 def tax(salary_pre, pension_insurance, medical_insurance, unemployment_insurance, housing_fund, deduction):
     """根据税前月薪, 社保, 医疗保险, 失业保险, 公积金, 专项扣除
-    算出2019每月应交税额"""
+    算出2020每月应交税额"""
 
     sval=salary_pre
-    sval1 = 0
-    sval2 = 0
-    sval3 = 0
-    sval4 = 0
-    sval5 = 0
-    if (sval*0.08 > 1970.7):
-        sval1=1970.7
+    salmax = 28017
+    shebao = 0
+    yiliao = 0
+    shiye = 0
+    gongjj = 0
+    bcgjj = 0
+
+    if (sval*0.08 > salmax * 0.08):
+        shebao = salmax * 0.08
     else:
-        sval1=sval*0.08
-    if (sval*0.02 > 492.66):
-        sval2=492.66
+        shebao=sval*0.08
+
+    if (sval*0.02 > salmax * 0.02):
+        yiliao = salmax * 0.02
     else:
-        sval2=sval*0.02
-    if (sval*0.005 > 123.2):
-        sval3=123.2
+        yiliao=sval*0.02
+    if (sval*0.005 > salmax * 0.005):
+        shiye = salmax * 0.005
     else:
-        sval3=sval*0.005
-    if (sval*0.07 > 1724):
-        sval4=1724
+        shiye=sval*0.005
+    if (sval*0.07 > salmax * 0.07):
+        gongjj = salmax * 0.07
     else:
-        sval4=sval*0.07
-    if (sval*0.05 > 1232):
-        sval5=1232
+        gongjj = sval*0.07
+    if (sval * 0.05 > salmax * 0.05):
+        bcgjj = salmax * 0.05
     else:
-        sval5=sval*0.05
+        bcgjj= sval * 0.05
 
     if sys.argv[1] == "1":
-        temp = salary_pre - sval1 - sval2 - sval3 - sval4 - sval5 - 5000 - deduction
+        temp = salary_pre - shebao - yiliao - shiye - gongjj - bcgjj - 5000 - deduction
     else:
-        temp = salary_pre - sval1 - sval2 - sval3 - sval4 - 5000 - deduction
-        sval5 = 0
+        temp = salary_pre - shebao - yiliao - shiye - gongjj - 5000 - deduction
+        bcgjj = 0
 
     month1 = []
     count = 0
@@ -77,15 +82,15 @@ def tax(salary_pre, pension_insurance, medical_insurance, unemployment_insurance
         count += month1[i-1]
         print("tax: {:.2f}".format(count))
 
-        # print("{}:pension_insurance:       {}".format(i, sval1))
-        # print("{}:medical_insurance:       {}".format(i, sval2))
-        # print("{}:unemployment_insurance:  {}".format(i, sval3))
-        # print("{}:housing_fund:            {}".format(i, sval4))
-        # print("The {}, you get the salary: {:.2f}".format(i, salary_pre - sval1 - sval2 - sval3 - sval4 - month1[i-1]))
+        # print("{}:pension_insurance:       {}".format(i, shebao))
+        # print("{}:medical_insurance:       {}".format(i, yiliao))
+        # print("{}:unemployment_insurance:  {}".format(i, shiye))
+        # print("{}:housing_fund:            {}".format(i, gongjj))
+        # print("The {}, you get the salary: {:.2f}".format(i, salary_pre - shebao - yiliao - shiye - gongjj - month1[i-1]))
 
-    print("社保 医疗保险 失业保险 公积金 补充公积金 缴税")
+    print("     社保    医疗保险 失业保险  公积金  补充公积金    税后     缴税")
     for i in range(1, 13):
-        print("{:2} {:8.2f} {:8.2f} {:8.2f} {:8.2f} {:8.2f} {:8.2f} {:8.2f}".format(i, sval1, sval2, sval3, sval4, sval5, salary_pre-sval1-sval2-sval3-sval4-sval5-month1[i-1], month1[i-1]))
+        print("{:2} {:8.2f} {:8.2f} {:8.2f} {:8.2f} {:8.2f} {:12.2f} {:8.2f}".format(i, shebao, yiliao, shiye, gongjj, bcgjj, salary_pre-shebao-yiliao-shiye-gongjj-bcgjj-month1[i-1], month1[i-1]))
     year = round(sum(month1), 2)
     print(year)
     month = [round(i, 2) for i in month1]
