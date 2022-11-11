@@ -100,7 +100,7 @@ def tax(before_tax, deduction):
             part_tax = 181920
         month_temp.append(temp * (i + 1) * rate_tax - part_tax - count)
         count += month_temp[i]
-        get_mon.append(before_tax - shebao - yiliao - shiye - gongjj - month_temp[i])
+        get_mon.append(before_tax - shebao - yiliao - shiye - gongjj - bcgjj - month_temp[i])
         print("The {:2}, you get the salary: {:8.2f} with tax {:8.2f}".format(i + 1, get_mon[i], month_temp[i]))
         
     print("")
