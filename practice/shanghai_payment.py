@@ -87,7 +87,7 @@ def tax(before_tax, deduction):
             rate_tax = 0.2
             part_tax = 16920
         elif 300000 < k <= 420000:    
-              rate_tax = 0.25
+            rate_tax = 0.25
             part_tax = 31920
         elif 420000 < k <= 660000:
             rate_tax = 0.3
